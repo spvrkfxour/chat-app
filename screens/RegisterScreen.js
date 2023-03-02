@@ -18,13 +18,14 @@ const RegisterScreen = ({ navigation }) => {
     }, [navigation]);
 
     const register = () => {
-        auth.createUserWithEmailAndPassword(email, password)
-        .then(authUser => {
-            authUser.user.update({
-                displayName: login,
-                photoURL: imageUrl || '../assets/empty-avatar.png'
-            })
-        }).catch(error => alert(error.message))
+        auth
+            .createUserWithEmailAndPassword(email, password)
+            .then((authUser) => {
+                authUser.user.updateProfile({
+                    displayName: login,
+                    photoURL: imageUrl || '../assets/empty-avatar.png'
+                });
+            }).catch(error => alert(error.message));
     };
 
     return (
