@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-elements';
+import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import CustomListItem from '../components/CustomListItem';
 import { auth, db } from '../firebase';
 
@@ -29,12 +30,23 @@ const HomeScreen = ({ navigation }) => {
             },
             headerRight: () => {
                 return (
-                    <View style={{}}>
+                    <View style={{ 
+                        marginRight: 20,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        width: 80,
+                        }}>
+                        <TouchableOpacity activeOpacity={0.5}>
+                            <AntDesign name='camerao' size={24} color='white' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => navigation.navigate('AddChat')} activeOpacity={0.5}>
+                            <SimpleLineIcons name='pencil' size={24} color='white' />
+                        </TouchableOpacity>
                     </View>
                 )
             },
         });
-    }, []);
+    }, [navigation]);
 
     return (
         <SafeAreaView>
