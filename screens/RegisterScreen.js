@@ -23,7 +23,7 @@ const RegisterScreen = ({ navigation }) => {
             .then((authUser) => {
                 authUser.user.updateProfile({
                     displayName: login,
-                    photoURL: imageUrl || '../assets/empty-avatar.png'
+                    photoURL: imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Grumpy_Cat.png',
                 });
             }).catch(error => alert(error.message));
     };

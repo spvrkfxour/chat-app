@@ -20,7 +20,9 @@ const LoginScreen = ({ navigation }) => {
     }, []);
 
     const signIn = () => {
-
+        auth
+            .signInWithEmailAndPassword(email, password)
+            .catch(error => alert(error))
     };
 
     return (
@@ -41,11 +43,12 @@ const LoginScreen = ({ navigation }) => {
                     type='password'
                     value={password}
                     onChangeText={(text) => setPassword(text)}
+                    onSubmitEditing={ signIn }
                 />
             </View>
             <Button
                 containerStyle={styles.button}
-                onPress={signIn}
+                onPress={ signIn }
                 title='Sign In'
             />
             <Button
