@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
+import { db } from '../firebase'
 
 
 const CustomListItem = ({ id, chatName, enterChat }) => {
+    const [chatMessages, setChatMessages] = useState([]);
+
+    useEffect(() => {
+        const unsubscribe = db
+            .collection('chats')
+            .doc(id)
+            .collection('messages')
+            .orderBy('timestamp', 'desc')
+            .onSnapshot((snapshot) => 
+                setChatMessages(snapshot.docs.map((doc) => doc.data()))
+            );
+
+        return unsubscribe;
+    });
+
     return (
-        <ListItem onPress={() => enterChat(id, chatName)} key={id} bottomDivider>
+        <ListItem key={id} onPress={() => enterChat(id, chatName)} bottomDivider>
             <Avatar
             rounded
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Grumpy_Cat.png' }}
+            source={{ uri: chatMessages?.[0]?.photoURL }}
             />
             <ListItem.Content>
                 <ListItem.Title style={{ fontWeight: '800' }} >
